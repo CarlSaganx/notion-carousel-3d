@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>3D Model Carousel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <!-- Swiper CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 
   <style>
@@ -49,12 +47,11 @@
   <div class="swiper-button-next"></div>
 </div>
 
-<!-- Libraries -->
-  <!-- Swiper JS -->
+<!-- JS LIBRARIES (fixed versions) -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <!-- Three.js and STLLoader (compatible r149) -->
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r149/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r149/examples/js/loaders/STLLoader.js"></script>
+
 <script>
   const swiper = new Swiper('.swiper', {
     loop: true,
@@ -71,7 +68,7 @@
 
   function initViewers() {
     document.querySelectorAll('.viewer').forEach(viewer => {
-      if (viewer.hasChildNodes()) return; // Only load once
+      if (viewer.hasChildNodes()) return;
 
       const scene = new THREE.Scene();
       const aspect = viewer.clientWidth / viewer.clientHeight;
@@ -82,10 +79,10 @@
       renderer.setSize(viewer.clientWidth, viewer.clientHeight);
       viewer.appendChild(renderer.domElement);
 
+      scene.add(new THREE.AmbientLight(0x888888));
       const light = new THREE.DirectionalLight(0xffffff, 1);
       light.position.set(50, 50, 50).normalize();
       scene.add(light);
-      scene.add(new THREE.AmbientLight(0x888888));
 
       const loader = new THREE.STLLoader();
       loader.load(
@@ -96,7 +93,7 @@
           geometry.computeBoundingBox();
           const center = geometry.boundingBox.getCenter(new THREE.Vector3());
           mesh.geometry.translate(-center.x, -center.y, -center.z);
-          scene.add(mesh);  
+          scene.add(mesh);
 
           const animate = () => {
             requestAnimationFrame(animate);
