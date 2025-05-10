@@ -47,10 +47,10 @@
   <div class="swiper-button-next"></div>
 </div>
 
-<!-- JS LIBRARIES (fixed versions) -->
+<!-- Scripts -->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r149/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r149/examples/js/loaders/STLLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.139.2/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.139.2/examples/js/loaders/STLLoader.js"></script>
 
 <script>
   const swiper = new Swiper('.swiper', {
@@ -79,10 +79,11 @@
       renderer.setSize(viewer.clientWidth, viewer.clientHeight);
       viewer.appendChild(renderer.domElement);
 
-      scene.add(new THREE.AmbientLight(0x888888));
-      const light = new THREE.DirectionalLight(0xffffff, 1);
-      light.position.set(50, 50, 50).normalize();
-      scene.add(light);
+      const ambientLight = new THREE.AmbientLight(0x888888);
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+      directionalLight.position.set(50, 50, 50).normalize();
+      scene.add(ambientLight);
+      scene.add(directionalLight);
 
       const loader = new THREE.STLLoader();
       loader.load(
